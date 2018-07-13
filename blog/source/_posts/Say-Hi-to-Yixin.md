@@ -6,5 +6,5 @@ tags:
 
 ```golang
 myLover := "Yixin"
-fmt.Printf("Hi, %s", myLover)
+fmt.Printf("Hi, 我爱你 %s", myLover)
 ```
