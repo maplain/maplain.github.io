@@ -81,6 +81,7 @@ deploy:
   type: git
   repo: git@github.com:maplain/maplain.github.io.git
   branch: master
+  token: $GITHUB_TOKEN
 
 # mermaid chart
 mermaid: ## mermaid url https://github.com/knsv/mermaid
