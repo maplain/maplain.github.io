@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8">
+<meta name="generator" content="Hexo 3.9.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.3.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.3.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.3.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.3.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    search: {
+      root: '/',
+      path: ''
+    },
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    }
+  };
+</script>
+
+  <meta name="description" content="Terminologycloudprovider.Interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43 type loadbalancer interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Notes on Kubernetss Cloud Provider">
+<meta property="og:url" content="http://maplain.github.io/2019/08/01/k8s-cloud-provider/index.html">
+<meta property="og:site_name" content="Fangyuan Li&#39;s Blog">
+<meta property="og:description" content="Terminologycloudprovider.Interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43 type loadbalancer interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-08-01T16:44:15.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Notes on Kubernetss Cloud Provider">
+<meta name="twitter:description" content="Terminologycloudprovider.Interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43 type loadbalancer interface: https://github.com/kubernetes/cloud-provider/blob/master/cloud.go">
+  <link rel="canonical" href="http://maplain.github.io/2019/08/01/k8s-cloud-provider/">
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Notes on Kubernetss Cloud Provider | Fangyuan Li's Blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Fangyuan Li's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+    <ul id="menu" class="menu">
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+    </ul>
+    
+
+</nav>
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/08/01/k8s-cloud-provider/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fangyuan Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fangyuan Li's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">Notes on Kubernetss Cloud Provider
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-08-01 09:42:20 / Modified: 09:44:15" itemprop="dateCreated datePublished" datetime="2019-08-01T09:42:20-07:00">2019-08-01</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><p>cloudprovider.Interface: <a href="https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43">https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43</a></p>
+<p>type loadbalancer interface: <a href="https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L106">https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L106</a></p>
+<ol>
+<li>GetLoadbalancer</li>
+<li>GetLoadBalancerName</li>
+<li>EnsureLoadBalancer</li>
+<li>UpdateLoadBalancer  </li>
+<li>EnsureLoadBalancerDeleted</li>
+</ol>
+<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><h3 id="Cloud-controller-manager"><a href="#Cloud-controller-manager" class="headerlink" title="Cloud controller manager"></a>Cloud controller manager</h3><p>k8s.io/kubernetes/cmd/cloud-controller-manager<br>one package: app, which contains the core logic of cloud-controller-manager.<br>Starts:</p>
+<ol>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/cloud/node_controller.go#L61">Node controller</a></li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/cloud/node_lifecycle_controller.go#L67">Node lifecycle controller</a>    </li>
+<li><a href="https://github.com/kubernetes/kubernetes/tree/master/pkg/controller/service">Service controller</a>    </li>
+<li><a href="https://github.com/kubernetes/kubernetes/tree/master/pkg/controller/route">Route controller</a>    </li>
+</ol>
+<p>Ref: <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L169">here</a></p>
+<h3 id="Service-Controller"><a href="#Service-Controller" class="headerlink" title="Service Controller"></a>Service Controller</h3><p>Service controller will be managing LoadBalancer type of service, see <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L238">here</a> for the initialization.</p>
+<ol>
+<li>Run() starts a group of workers <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L205">here</a></li>
+<li>Worker() calls processNextWorkItem();</li>
+<li>processNextWorkItem() calls syncService();</li>
+<li>syncService() by default calls processServiceCreateOrUpdate();</li>
+<li>processServiceCreateOrUpdate() calls syncLoadBalancerIfNeeded() if needed;</li>
+<li>syncLoadBalancerIfNeeded() calls ensureLoadBalancer() if loadbalancer needs to be created;</li>
+<li>Calls cloud provider’s <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L374">EnsureLoadBalancer</a> through cloudprovider.Interface with a group of nodes;</li>
+</ol>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="vSphere-out-of-tree-Cloud-Provider"><a href="#vSphere-out-of-tree-Cloud-Provider" class="headerlink" title="vSphere out-of-tree Cloud Provider"></a>vSphere out-of-tree Cloud Provider</h3><ol>
+<li>Vsphere-cloud-controller-manager is a cobra command which invokes <a href="https://github.com/kubernetes/cloud-provider-vsphere/blob/master/cmd/vsphere-cloud-controller-manager/main.go#L99">app.Run</a>;</li>
+<li><a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L115">Run</a> starts above mentioned <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L169">four controllers</a> and <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L276">here</a>;</li>
+</ol>
+<p>As a result, vsphere-cloud-provider-manager is a concrete “implementation” of cloud-controller-manager upstream in the sense that:</p>
+<ol>
+<li>Leverages the same app package to Run;</li>
+<li>Implements cloudprovider.Interface;</li>
+</ol>
+<h3 id="Azure-out-of-tree-Cloud-provider"><a href="#Azure-out-of-tree-Cloud-provider" class="headerlink" title="Azure out-of-tree Cloud provider"></a>Azure out-of-tree Cloud provider</h3><ol>
+<li>Azure cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-azure/blob/v0.2.0/cloud-controller-manager/main.go#L84">here</a>;</li>
+</ol>
+<h3 id="Aws-out-of-tree-Cloud-Provider"><a href="#Aws-out-of-tree-Cloud-Provider" class="headerlink" title="Aws out-of-tree Cloud Provider"></a>Aws out-of-tree Cloud Provider</h3><ol>
+<li>Aws cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-aws/blob/master/cmd/aws-cloud-controller-manager/main.go#L76">here</a>;</li>
+</ol>
+<h3 id="Openstack-out-of-tree-Cloud-Provider"><a href="#Openstack-out-of-tree-Cloud-Provider" class="headerlink" title="Openstack out-of-tree Cloud Provider"></a>Openstack out-of-tree Cloud Provider</h3><ol>
+<li>Openstack cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-openstack/blob/master/cmd/openstack-cloud-controller-manager/main.go#L103">here</a>;</li>
+</ol>
+<h3 id="AliCloud-Cloud-Provider"><a href="#AliCloud-Cloud-Provider" class="headerlink" title="AliCloud Cloud Provider"></a>AliCloud Cloud Provider</h3><p>AliCloud Cloud Provider is an exception, seems like it “copies” upstream cloud-controller-manager and other controllers’ code, and made its own modifications.</p>
+<ol>
+<li>Run <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L214">calls</a>  <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L228">MainLoop</a>;</li>
+<li>MainLoop calls <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L210">RunControllers</a>;</li>
+<li>RunControllers calls <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L284">runControllerPV</a> and <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L289">runControllerService</a>, which in turn starts its own controllers;</li>
+</ol>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>To summarize, to implement an out-of-tree cloud provider:</p>
+<ol>
+<li><p>the entry point is app.Run;</p>
+</li>
+<li><p>Have your own implementation of cloudprovider.Interface;</p>
+</li>
+<li><p>Register your own cluster provider by calling cloudprovider.RegisterCloudProvider, because cloud-controller-manager calls <a href="https://github.com/kubernetes/kubernetes/blob/v1.16.0-alpha.2/cmd/cloud-controller-manager/app/controllermanager.go#L119">InitCloudProvider</a> to initialize cloud provider instance;</p>
+</li>
+<li><p>InitCloudProvider uses configured name to get corresponding registered initialization function in an internal map, which can be updated by RegisterCloudProvider;</p>
+</li>
+<li><p>See example <a href="https://github.com/kubernetes/cloud-provider-vsphere/blob/v0.2.1/pkg/cloudprovider/vsphere/cloud.go#L41-L49">here</a> in vsphere cloud provider;</p>
+</li>
+</ol>
+<p>Here is an example I created: <a href="https://github.com/maplain/dummy-k8s-cloud-provider">https://github.com/maplain/dummy-k8s-cloud-provider</a></p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>Cloud Controller Manager: <a href="https://kubernetes.io/docs/concepts/architecture/cloud-controller/">https://kubernetes.io/docs/concepts/architecture/cloud-controller/</a><br>Develop an out-of-tree Cloud Provider: <a href="https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/#out-of-tree">https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/#out-of-tree</a><br>KEP: <a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/0002-cloud-controller-manager.md#remove-cloud-provider-code-from-kubernetes-core">https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/0002-cloud-controller-manager.md#remove-cloud-provider-code-from-kubernetes-core</a></p>
+<h3 id="Out-of-tree-cloud-providers"><a href="#Out-of-tree-cloud-providers" class="headerlink" title="Out-of-tree cloud providers"></a>Out-of-tree cloud providers</h3><p>Vsphere: <a href="https://github.com/kubernetes/cloud-provider-vsphere">https://github.com/kubernetes/cloud-provider-vsphere</a><br>Alibaba: <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud">https://github.com/kubernetes/cloud-provider-alibaba-cloud</a><br>Azure: <a href="https://github.com/kubernetes/cloud-provider-azure">https://github.com/kubernetes/cloud-provider-azure</a><br>Openstack: <a href="https://github.com/kubernetes/cloud-provider-openstack">https://github.com/kubernetes/cloud-provider-openstack</a><br>Aws: <a href="https://github.com/kubernetes/cloud-provider-aws">https://github.com/kubernetes/cloud-provider-aws</a></p>
+<h3 id="Common-Packages"><a href="#Common-Packages" class="headerlink" title="Common Packages"></a>Common Packages</h3><p><a href="https://github.com/kubernetes/klog">Klog</a> for logging<br><a href="https://godoc.org/gopkg.in/gcfg.v1">Gcfg</a> for config file, which has the same syntax as <a href="https://git-scm.com/docs/git-config#_syntax">git</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Fangyuan Li</p>
+  <div class="site-description motion-element" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">1</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+  </nav>
+
+
+
+        </div>
+      </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Terminology"><span class="nav-number">1.</span> <span class="nav-text">Terminology</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Components"><span class="nav-number">2.</span> <span class="nav-text">Components</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cloud-controller-manager"><span class="nav-number">2.1.</span> <span class="nav-text">Cloud controller manager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-Controller"><span class="nav-number">2.2.</span> <span class="nav-text">Service Controller</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">3.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#vSphere-out-of-tree-Cloud-Provider"><span class="nav-number">3.1.</span> <span class="nav-text">vSphere out-of-tree Cloud Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Azure-out-of-tree-Cloud-provider"><span class="nav-number">3.2.</span> <span class="nav-text">Azure out-of-tree Cloud provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aws-out-of-tree-Cloud-Provider"><span class="nav-number">3.3.</span> <span class="nav-text">Aws out-of-tree Cloud Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Openstack-out-of-tree-Cloud-Provider"><span class="nav-number">3.4.</span> <span class="nav-text">Openstack out-of-tree Cloud Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AliCloud-Cloud-Provider"><span class="nav-number">3.5.</span> <span class="nav-text">AliCloud Cloud Provider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Summary"><span class="nav-number">3.6.</span> <span class="nav-text">Summary</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Out-of-tree-cloud-providers"><span class="nav-number">4.1.</span> <span class="nav-text">Out-of-tree cloud providers</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Common-Packages"><span class="nav-number">4.2.</span> <span class="nav-text">Common Packages</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fangyuan Li</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.3.0</div>
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+      </div>
+
+    
+
+  </div>
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  <script src="/js/utils.js?v=7.3.0"></script>
+  <script src="/js/motion.js?v=7.3.0"></script>
+
+  
+  <script src="/js/schemes/muse.js?v=7.3.0"></script>
+
+
+  
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.3.0"></script>
+
+  
+
+  
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
