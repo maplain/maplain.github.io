@@ -187,6 +187,131 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2020/01/03/Cloud-Native-Virtualization-Technologies/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fangyuan Li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fangyuan Li's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2020/01/03/Cloud-Native-Virtualization-Technologies/" class="post-title-link" itemprop="url">Cloud Native Virtualization Technologies</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2020-01-03 15:27:00 / Modified: 15:59:00" itemprop="dateCreated datePublished" datetime="2020-01-03T15:27:00-08:00">2020-01-03</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>I’ve been investigating cloud native virtualization technologies in the past week. More specifically, I tried to:</p>
+<ol>
+<li>create/poweron/ssh into/poweroff/delete a virtualmachine by using qemu/kvm;</li>
+<li>create/poweron/ssh into/poweroff/delete a virtualmachine through libvirt+esxi;</li>
+<li>create/poweron/ssh into/poweroff/delete a virtualmachine through libvirt+qemu/kvm;</li>
+<li>create/ssh into/suspend/delete a container through libvirt+lxc;</li>
+<li>try out kata-container by following its quickstart guide:<ol>
+<li>build the kernel;</li>
+<li>build the rootfs;</li>
+<li>add kata-container as an extra runtime to docker;</li>
+<li>run docker to start a container through kata-container so the container is actaully running as a vm;</li>
+<li>only qemu/kvm is used;</li>
+</ol>
+</li>
+<li>try out firecracker by following its quickstart guide which basically boots up a vm by using provided kernel and rootfs;</li>
+<li>try out ignite by following its quickstart guide to import a kernel from a docker image, and deploy a container vm, ssh into it and delete it;</li>
+<li>also read some documentations on:<ol>
+<li>kubevirt</li>
+<li>virtlet</li>
+</ol>
+</li>
+</ol>
+<p>After which, I get a rough idea of:</p>
+<ol>
+<li>what is libvirt;</li>
+<li>how is kubevirt, virtlet architectured and using libvirt;</li>
+<li>what is kata-container, firecracker, cloud-hypervisor, qemu/kvm, lxc/lxd;</li>
+</ol>
+<p>To summary:</p>
+<ol>
+<li>kubevirt and virtlet all leverage libvirt to provision vms. They are mainly using the qemu/kvm mode for libvirt;<ol>
+<li>kubevirt includes an operator, a handler per K8s node and a launcher per<br>vm;</li>
+<li>virtlet instead implements a CRI proxy which calls virtlet process to provision the<br>vm besides the inband call to docker;</li>
+</ol>
+</li>
+<li>firecracker now provides a binary that allows you to boot a microvm with provided kernel and rootfs fast. It opens up a socket and listens of REST requests;</li>
+<li>ignite is a thin wrapper over firecracker as far as I call tell, including the abilities to easily manage kernel images, rootfs in an organized, docker-image way. But it’s not OCI-compliant, so it can only be used standalone now. Besides, it seems it’s integrated with weave net cni by default;</li>
+<li>kata-container is pretty well interfaced compared with ignite. It’s a OCI-compliant container runtime so it can be easily swapped in to replace runc in docker, also through cri-o, it can also be used in K8s as the runtime. On the backend, it leverages virtcontainer library to abstract Hypervisor calls into an interface. qemu/kvm, cloud-hypervisor, firecracker, acrn are supported now according to the doc;</li>
+<li>cloud-hypervisor and firecracker are built based on rust-vmm library, which includes many useful components to build vmm quickly, effectively and securely. Among them, it includes a kvm ioctl wrapper: kvm-bindings.</li>
+</ol>
+<p>All my findings are recorded into my personal wiki and I’ll see if I can host it somewhere.</p>
+<p>The following picture demonstrates their relationships:<br><img src="/images/virtualization-tech.png" alt="Knowledge graph"></p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -460,7 +585,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -495,7 +620,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
@@ -529,6 +654,7 @@
 
   
   <script src="/lib/jquery/index.js?v=3.4.1"></script>
+  <script src="/lib/reading_progress/reading_progress.js"></script>
   <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
   <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
 
