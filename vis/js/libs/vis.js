@@ -14,6 +14,8 @@ var Network = function() {
 	// accessing the nodes and links display
 	var nodesG = null
 	var linksG = null
+	var textsG = null
+	var usesG = null
 	// these will point to the circles and lines
 	// of the nodes and links
 	var node = null
@@ -38,8 +40,13 @@ var Network = function() {
 		vis = d3.select(selection).append("svg")
 			.attr("width", width)
 			.attr("height", height)
+			.call(d3.zoom().on("zoom", function () {
+				vis.attr("transform", d3.event.transform)
+			}))
 		linksG = vis.append("g").attr("id", "links")
 		nodesG = vis.append("g").attr("id", "nodes")
+		textsG = vis.append("g").attr("id", "texts")
+		usesG = vis.append("g").attr("id", "uses")
 
 		simulation = d3.forceSimulation(allData.nodes)
 			.force('charge', d3.forceManyBody().strength(-200))
@@ -47,6 +54,15 @@ var Network = function() {
 			.force('link', d3.forceLink().id(function(d){return d.name})
 				.links(allData.links).distance(50))
 			.on('tick', update)
+
+		var dragHandler = d3.drag()
+			.on("drag", function () {
+				d3.select(this)
+					.attr("x", d3.event.x)
+					.attr("y", d3.event.y);
+			});
+
+		dragHandler(usesG.selectAll("use"));
 
 	}
 
@@ -67,8 +83,11 @@ var Network = function() {
 		// enter / exit for nodes
 		updateNodes()
 
+		updateTexts()
 		// simulation.force('link', d3.forceLink().links(curLinksData))
 		updateLinks()
+
+		updateUses()
 	}
 
 	network.updateData = function(newData) { 
@@ -137,12 +156,12 @@ var Network = function() {
 	// enter/exit display for nodes
 	var updateNodes = function() { 
 		node = nodesG.selectAll("circle.node")
-			.data(allData.nodes, function(d) {return d ? d.name: this.id;})
+			.data(allData.nodes, function(d) {return d ? d.name+"-node": this.id;})
 
 		node.enter().append("circle")
 		        .merge(node)
 			.attr("class", "node")
-			.attr("id", function(d){return d.name})
+			.attr("id", function(d){return d.name+"-node"})
 			.attr("cx", function(d) {return d.x})
 			.attr("cy", function(d) {return d.y})
 			.attr("r", function(d) {return d.radius})
@@ -150,23 +169,29 @@ var Network = function() {
 			.style("stroke", function(d) {return strokeFor(d)})
 			.style("stroke-width", 1.0)
 
-		node.each(function(d, i){
-			d3.select(this)
-			        .select("text")
-			        //.data([d.name])
-			        .enter()
-			        .append("text")
-				.attr("x", function(d) {return d.x})
-				.attr("y", function(d) {return d.y})
-				.attr("text-anchor", "middle")
-				.style("stroke", "red")
-				.style("stroke-width", 0.0)
-				.text(d.name)
-		})
 		node.on("mouseover", showDetails)
 			.on("mouseout", hideDetails)
 		//node.on("click", exposeDetails)
 		node.exit().remove()
+
+	}
+	// enter/exit display for texts
+	var updateTexts = function() { 
+		text = textsG.selectAll("text.info")
+			.data(allData.nodes, function(d) {return d ? d.name+"-text": this.id;})
+
+		text.enter().append("text")
+			.merge(text)
+			.attr("class", "info")
+			.attr("id", function(d){return d.name+"-text"})
+			.attr("x", function(d) {return d.x})
+			.attr("y", function(d) {return d.y})
+			.attr("font-size", 6)
+			.attr("text-anchor", "middle")
+			.style("stroke", "black")
+			.style("stroke-width", 0.5)
+			.text(d => d.name)
+		text.exit().remove()
 	}
 
 	// enter/exit display for links
@@ -187,6 +212,24 @@ var Network = function() {
 		link.exit().remove()
 	}
 
+	// enter/exit display for uses
+	var updateUses= function() { 
+		uses = usesG.selectAll("use")
+			.data(allData.nodes, function(d) {return d ? d.name+"-use": this.id;})
+
+		uses.enter().append("use")
+			.merge(uses)
+			.attr("id", function(d){return d.name+"-use"})
+			.attr("href", function(d){return d.name+"-node"})
+			.attr("x", function(d){return d.x})
+			.attr("y", function(d){return d.y})
+			.attr("fill", "#039BE5")
+			.style("stroke", "black")
+			.style("stroke-width", 0.5)
+		uses.exit().remove()
+	}
+
+
 	// Helper function that returns stroke color for
 	// particular node.
 	var strokeFor = function(d) { 
@@ -200,9 +243,9 @@ var Network = function() {
 
 	// Mouseover tooltip function
 	var showDetails = function(d,i) { 
-		content = '<p class="main">' + d.name + '</span></p>'
-		content += '<hr class="tooltip-hr">'
-		content += '<p class="main">' + d.company+ '</span></p>'
+       /*         content = '<p class="main">' + d.name + '</span></p>'*/
+		/*content += '<hr class="tooltip-hr">'*/
+		content = '<p class="main">' + d.company+ '</span></p>'
 		if (d.link) {
 			content += '<hr class="tooltip-hr">'
 			content += '<p class="main">' + d.link + '</span></p>'
@@ -261,7 +304,7 @@ var Network = function() {
 //  d3.json "data/#{dataFile}", (json) ->
 //    myNetwork.updateData(json)
 
-d3.json("/data/cloud_native_virtualization.json").then(function(json) {
+d3.json("data/cloud_native_virtualization.json").then(function(json) {
 	myNetwork = Network();
 	myNetwork("#vis", json);
 });
