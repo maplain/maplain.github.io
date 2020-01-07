@@ -304,7 +304,7 @@ var Network = function() {
 //  d3.json "data/#{dataFile}", (json) ->
 //    myNetwork.updateData(json)
 
-d3.json("/vis/data/cloud_native_virtualization.json").then(function(json) {
+d3.json("data/cloud_native_virtualization.json").then(function(json) {
 	myNetwork = Network();
 	myNetwork("#vis", json);
 });
