@@ -1,10 +1,13 @@
 package data
 
+const ()
+
 func init() {
 	docker := Node{
 		Name:    "Docker",
 		Company: "Docker",
 		Link:    "Fangyuan#Docker",
+		Type:    basedOn,
 	}
 	k8s := Node{
 		Name:    "Kubernetes",

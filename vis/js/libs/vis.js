@@ -50,7 +50,7 @@ var Network = function() {
 
 		simulation = d3.forceSimulation(allData.nodes)
 			.force('charge', d3.forceManyBody().strength(-200))
-			//.force('x', d3.forceX(width/2))
+			.force('center', d3.forceCenter(width/2, height/2))
 			.force('link', d3.forceLink().id(function(d){return d.name})
 				.links(allData.links).distance(50))
 			.on('tick', update)
@@ -168,6 +168,9 @@ var Network = function() {
 			.style("fill", function(d) {return nodeColors(d.company)})
 			.style("stroke", function(d) {return strokeFor(d)})
 			.style("stroke-width", 1.0)
+			.call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged))
 
 		node.on("mouseover", showDetails)
 			.on("mouseout", hideDetails)
@@ -208,6 +211,8 @@ var Network = function() {
 			.attr("y1", function(d) {return d.source.y})
 			.attr("x2", function(d) {return d.target.x})
 			.attr("y2", function(d) {return d.target.y})
+		link.append("title")
+			.text(function(d){return d.type})
 
 		link.exit().remove()
 	}
@@ -229,6 +234,16 @@ var Network = function() {
 		uses.exit().remove()
 	}
 
+	function dragstarted(d) {
+		if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+		d.fx = d.x;
+		d.fy = d.y;
+	}
+
+	function dragged(d) {
+		d.fx = d3.event.x;
+		d.fy = d3.event.y;
+	}
 
 	// Helper function that returns stroke color for
 	// particular node.

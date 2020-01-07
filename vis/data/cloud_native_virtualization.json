@@ -3,87 +3,104 @@
     {
       "name": "Docker",
       "company": "Docker",
-      "link": "Fangyuan#Docker"
+      "link": "Fangyuan#Docker",
+      "type": "Based On"
     },
     {
       "name": "Kubernetes",
       "company": "Google",
-      "link": "Fangyuan#Kubernetes"
+      "link": "Fangyuan#Kubernetes",
+      "type": ""
     },
     {
       "name": "Ignite",
       "company": "Weave",
-      "link": "Fangyuan#ignite"
+      "link": "Fangyuan#ignite",
+      "type": ""
     },
     {
       "name": "Kata-Container",
       "company": "Intel",
-      "link": "Fangyuan#Kata_Container"
+      "link": "Fangyuan#Kata_Container",
+      "type": ""
     },
     {
       "name": "ACRN",
       "company": "Intel",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "Cloud-Hypervisor",
       "company": "Intel",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "Firecracker",
       "company": "Amazon",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "Rust-VMM",
       "company": "Amazon",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "KVM",
       "company": "Linux",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "QEMU",
       "company": "Open Source",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "libvirt",
       "company": "redhat",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "ESXi",
       "company": "VMware",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "LXC",
       "company": "Linux",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "XEN",
       "company": "Unknown",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "...",
       "company": "",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "Virtlet",
       "company": "Mirantis",
-      "link": ""
+      "link": "",
+      "type": ""
     },
     {
       "name": "Kubevirt",
       "company": "Redhat",
-      "link": ""
+      "link": "",
+      "type": ""
     }
   ],
   "links": [
