@@ -59,10 +59,8 @@ var Network = function() {
 			simulation.alpha(0)
 		}
 	}
-	network.allData = allData
-
-	network.setData = function() {
-		network.allData = allData
+	network.getData = function() {
+		return allData
 	}
 	// The update() function performs the bulk of the
 	// work to setup our visualization based on the
@@ -92,6 +90,8 @@ var Network = function() {
 		if (fixed) {
 			simulation.alphaTarget(0)
 			simulation.alpha(0)
+		} else {
+			simulation.alphaTarget(0.5)
 		}
 
 		link.remove()
@@ -112,6 +112,8 @@ var Network = function() {
 				n.y = randomnumber=Math.floor(Math.random()*height)
 				// add radius to the node so we can use it later
 				n.radius = 10
+				n.fx = undefined
+				n.fy = undefined
 			})
 		} else {
 			var xmax = d3.max(data.nodes, d=>d.x)
@@ -262,7 +264,10 @@ var Network = function() {
 	}
 
 	function dragstopped(d) {
-		simulation.stop()
+		if (!d3.event.active) simulation.alphaTarget(0);
+		// fix it after dragging finishes
+		d.fx = d.x
+		d.fy = d.y
 	}
 
 	// Helper function that returns stroke color for
@@ -371,12 +376,12 @@ d3.select("#data_select").on("change", function(d) {
 
 // handle download data
 d3.select("#download-input").on("click", function(){
-	myNetwork.setData()
+	var data = myNetwork.getData()
 	var saveLinks = [];
-	myNetwork.allData.links.forEach(function(val, i){
+	data.links.forEach(function(val, i){
 		saveLinks.push({source: val.source.name, target: val.target.name});
 	});
-	var blob = new Blob([window.JSON.stringify({"nodes": myNetwork.allData.nodes, "links": saveLinks})], {type: "text/plain;charset=utf-8"});
+	var blob = new Blob([window.JSON.stringify({"nodes": data.nodes, "links": saveLinks})], {type: "text/plain;charset=utf-8"});
 	window.saveAs(blob, "mydag.json");
 });
 
