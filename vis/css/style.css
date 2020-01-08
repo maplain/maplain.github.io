@@ -1,10 +1,19 @@
 body {
   font-family: Arial, sans-serif;
+  overflow:hidden;
 }
 
 a, a:visited {
   color: #4d4d4d;
   text-decoration: underline;
+}
+
+#vis {
+  width: 960px;
+  max-width: 960px;
+  height: 800px;
+  max-height: 800px;
+  overflow: scroll;
 }
 
 #container {
@@ -15,6 +24,7 @@ a, a:visited {
 
 #main {
   clear: both;
+  overflow:hidden;
 }
 
 #controls {
