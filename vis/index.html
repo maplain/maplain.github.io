@@ -20,6 +20,7 @@
   <!-- end CSS-->
 
   <script src="js/libs/modernizr-2.0.6.min.js"></script>
+  <link rel="stylesheet" href="css/graph-creator.css" />
 </head>
 
 <body>
@@ -47,6 +48,14 @@
     </div>
   </div> <!--! end of #container -->
 
+  <div id="toolbox">
+	  <input type="file" id="hidden-file-upload">
+	  <!-- <input type="image" id="upload-input" title="upload graph" src="data/images/upload-icon.png" alt="upload graph"> -->
+	  <input type="image" id="download-input" title="download graph" src="data/images/download-icon.png" alt="download graph">
+	  <!-- <input type="image" id="delete-graph" title="delete graph" src="data/images/trash-icon.png" alt="delete graph"> -->
+  </div>
+
+
 
   <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script> -->
   <script>window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')</script>
@@ -56,6 +65,7 @@
   <script defer src="js/script.js"></script>
   <script src="js/libs/d3.v5.js"></script>
   <script src="js/Tooltip.js"></script>
+  <script src="//cdn.jsdelivr.net/filesaver.js/0.1/FileSaver.min.js"></script>
   <script src="js/libs/vis.js"></script>
 
   <script> // Change UA-XXXXX-X to be your site's ID

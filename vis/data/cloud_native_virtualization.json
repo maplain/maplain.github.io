@@ -4,103 +4,239 @@
       "name": "Docker",
       "company": "Docker",
       "link": "Fangyuan#Docker",
-      "type": "Based On"
+      "type": "Based On",
+      "x": 283.3705162184462,
+      "y": 273.667966864418,
+      "radius": 10,
+      "index": 0,
+      "vy": 0,
+      "vx": 0,
+      "fx": 283.3705162184462,
+      "fy": 273.667966864418
     },
     {
       "name": "Kubernetes",
       "company": "Google",
       "link": "Fangyuan#Kubernetes",
-      "type": ""
+      "type": "",
+      "x": 387.4660263489983,
+      "y": 163.4338814498338,
+      "radius": 10,
+      "index": 1,
+      "vy": 0,
+      "vx": 0,
+      "fx": 387.4660263489983,
+      "fy": 163.4338814498338
     },
     {
       "name": "Ignite",
       "company": "Weave",
       "link": "Fangyuan#ignite",
-      "type": ""
+      "type": "",
+      "x": 199.62632249960694,
+      "y": 271.786369344167,
+      "radius": 10,
+      "index": 2,
+      "vy": 0,
+      "vx": 0,
+      "fx": 199.62632249960694,
+      "fy": 271.786369344167
     },
     {
       "name": "Kata-Container",
       "company": "Intel",
       "link": "Fangyuan#Kata_Container",
-      "type": ""
+      "type": "",
+      "x": 314.82537620360176,
+      "y": 342.19997417856723,
+      "radius": 10,
+      "index": 3,
+      "vy": 0,
+      "vx": 0,
+      "fx": 314.82537620360176,
+      "fy": 342.19997417856723
     },
     {
       "name": "ACRN",
       "company": "Intel",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 180.13984318038143,
+      "y": 411.1676511751543,
+      "radius": 10,
+      "index": 4,
+      "vy": 0,
+      "vx": 0,
+      "fx": 180.13984318038143,
+      "fy": 411.1676511751543
     },
     {
       "name": "Cloud-Hypervisor",
       "company": "Intel",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 318.4595318256615,
+      "y": 410.89992416356114,
+      "radius": 10,
+      "index": 5,
+      "vy": 0,
+      "vx": 0,
+      "fx": 318.4595318256615,
+      "fy": 410.89992416356114
     },
     {
       "name": "Firecracker",
       "company": "Amazon",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 238.12900263369988,
+      "y": 412.0274465481881,
+      "radius": 10,
+      "index": 6,
+      "vy": 0,
+      "vx": 0,
+      "fx": 238.12900263369988,
+      "fy": 412.0274465481881
     },
     {
       "name": "Rust-VMM",
       "company": "Amazon",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 300.11439852547784,
+      "y": 468.9372670277084,
+      "radius": 10,
+      "index": 7,
+      "vy": 0,
+      "vx": 0,
+      "fx": 300.11439852547784,
+      "fy": 468.9372670277084
     },
     {
       "name": "KVM",
       "company": "Linux",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 366.22020846302587,
+      "y": 533.3333333333334,
+      "radius": 10,
+      "index": 8,
+      "vy": 0,
+      "vx": 0,
+      "fx": 366.22020846302587,
+      "fy": 533.3333333333334
     },
     {
       "name": "QEMU",
       "company": "Open Source",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 410.23049758916306,
+      "y": 413.0413796016183,
+      "radius": 10,
+      "index": 9,
+      "vy": 0,
+      "vx": 0,
+      "fx": 410.23049758916306,
+      "fy": 413.0413796016183
     },
     {
       "name": "libvirt",
       "company": "redhat",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 508.1044094685727,
+      "y": 352.9218506059564,
+      "radius": 10,
+      "index": 10,
+      "vy": 0,
+      "vx": 0,
+      "fx": 508.1044094685727,
+      "fy": 352.9218506059564
     },
     {
       "name": "ESXi",
       "company": "VMware",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 462.82441663475896,
+      "y": 412.1353796649242,
+      "radius": 10,
+      "index": 11,
+      "vy": 0,
+      "vx": 0,
+      "fx": 462.82441663475896,
+      "fy": 412.1353796649242
     },
     {
       "name": "LXC",
       "company": "Linux",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 514.9784992947197,
+      "y": 410.89520614779997,
+      "radius": 10,
+      "index": 12,
+      "vy": 0,
+      "vx": 0,
+      "fx": 514.9784992947197,
+      "fy": 410.89520614779997
     },
     {
       "name": "XEN",
       "company": "Unknown",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 569.6989857800223,
+      "y": 409.4775776806437,
+      "radius": 10,
+      "index": 13,
+      "vy": 0,
+      "vx": 0,
+      "fx": 569.6989857800223,
+      "fy": 409.4775776806437
     },
     {
       "name": "...",
       "company": "",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 640,
+      "y": 410.3965008274763,
+      "radius": 10,
+      "index": 14,
+      "vy": 0,
+      "vx": 0,
+      "fx": 640,
+      "fy": 410.3965008274763
     },
     {
       "name": "Virtlet",
       "company": "Mirantis",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 480.4941187958835,
+      "y": 277.05317711801086,
+      "radius": 10,
+      "index": 15,
+      "vy": 0,
+      "vx": 0,
+      "fx": 480.4941187958835,
+      "fy": 277.05317711801086
     },
     {
       "name": "Kubevirt",
       "company": "Redhat",
       "link": "",
-      "type": ""
+      "type": "",
+      "x": 572.5962812001995,
+      "y": 275.56355901924394,
+      "radius": 10,
+      "index": 16,
+      "vy": 0,
+      "vx": 0,
+      "fx": 572.5962812001995,
+      "fy": 275.56355901924394
     }
   ],
   "links": [
@@ -175,6 +311,18 @@
     {
       "source": "Kubevirt",
       "target": "libvirt"
+    },
+    {
+      "source": "Kubevirt",
+      "target": "Kubernetes"
+    },
+    {
+      "source": "Docker",
+      "target": "Kubernetes"
+    },
+    {
+      "source": "Virtlet",
+      "target": "Kubernetes"
     }
   ]
 }

@@ -55,7 +55,11 @@ var Network = function() {
 				.links(allData.links).distance(50))
 			.on('tick', update)
 	}
+	network.allData = allData
 
+	network.setData = function() {
+		network.allData = allData
+	}
 	// The update() function performs the bulk of the
 	// work to setup our visualization based on the
 	// current layout/sort/filter.
@@ -119,7 +123,7 @@ var Network = function() {
 		// switch links to point to node objects instead of id's
 		data.links.forEach(function(l) {
 			// linkedByIndex is used for link sorting
-			linkedByIndex["#{l.source.name},#{l.target.name}"] = 1
+			linkedByIndex[l.source+ "," + l.target] = 1
 		})
 		return data
 	}
@@ -138,8 +142,9 @@ var Network = function() {
 	// there is a link between them.
 	// Uses linkedByIndex initialized in setupData
 	var neighboring = function(a, b) {
-		linkedByIndex[a.name+ "," + b.name] || 
+		var res = linkedByIndex[a.name+ "," + b.name] || 
 			linkedByIndex[b.name+ "," + a.name]
+		return res
 	}
 
 	// Removes nodes from input array
@@ -165,7 +170,6 @@ var Network = function() {
 			.data(allData.nodes, function(d) {return d ? d.name+"-node": this.id;})
 
 		node.enter().append("circle")
-		        .merge(node)
 			.attr("class", "node")
 			.attr("id", function(d){return d.name+"-node"})
 			.attr("cx", function(d) {return d.x})
@@ -190,7 +194,6 @@ var Network = function() {
 			.data(allData.nodes, function(d) {return d ? d.name+"-text": this.id;})
 
 		text.enter().append("text")
-			.merge(text)
 			.attr("class", "info")
 			.attr("id", function(d){return d.name+"-text"})
 			.attr("x", function(d) {return d.x})
@@ -206,12 +209,11 @@ var Network = function() {
 	// enter/exit display for links
 	var updateLinks = function() { 
 		link = linksG.selectAll("line.link")
-			.data(allData.links, function(d) {return d ? "#{d.source.name}_#{d.target.name}" : this.id})
+			.data(allData.links, function(d) {return d ? d.source.name+"_"+d.target.name : this.id})
 		link.enter().append("line")
-		        .merge(link)
 			.attr("class", "link")
 			.attr("stroke", "#ddd")
-			.attr("id", function(d){return "#{d.source.name}_#{d.target.name}";})
+			.attr("id", function(d){return d.source.name + "_" + d.target.name;})
 			.attr("stroke-opacity", 0.8)
 			.attr("x1", function(d) {return d.source.x})
 			.attr("y1", function(d) {return d.source.y})
@@ -259,27 +261,28 @@ var Network = function() {
 		}
 
 		// higlight connected links
-		if (link != nil)  {
-			link.attr("stroke", function(l, i) { 
-				if (l.source == d || l.target == d ) {return "#555"} 
-				else {return "#ddd"}
+		if (link != null)  {
+			link
+				.style("stroke", function(l, i) { 
+				if (l.source == d || l.target == d ) {
+					return "#555"
+				} else {
+					return "#ddd"
+				}
 			})
-				.attr("stroke-opacity", function(l, i) { 
-					if (l.source == d || l.target == d)
-					{return 1.0}
-					else {return 0.5}
+				.style("stroke-opacity", function(l, i) { 
+					if (l.source == d || l.target == d) {
+						return 1.0
+					} else {
+						return 0.5
+					}
 				})
 		}
 
-		// link.each (l) ->
-		//   if l.source == d or l.target == d
-		//     d3.select(this).attr("stroke", "#555")
-
 		// highlight neighboring nodes
 		// watch out - don't mess with node if search is currently matching
-		node
-			.style("stroke", function(n) {
-				if (n.searched || neighboring(d, n)) {return "#555"} else {return strokeFor(n)}
+		node.style("stroke", function(n) {
+			if (n.searched || neighboring(d, n)) {return "#555"} else {return strokeFor(n)}
 		})
 			.style("stroke-width", function(n) { 
 				if (n.searched || neighboring(d, n)) {return 2.0} else {return 1.0}
@@ -292,13 +295,16 @@ var Network = function() {
 
 	// Mouseout function
 	var hideDetails = function(d,i) { 
-		d3.timeout(tooltip.hideTooltip(), 1000)
+		d3.timeout(tooltip.hideTooltip, 1000)
 		// watch out - don't mess with node if search is currently matching
 		node.style("stroke", function(n) {if (!n.searched) {return strokeFor(n)} else {return "#555"}})
 			.style("stroke-width", function(n) { if (!n.searched) {return 1.0} else {return 2.0}})
-		if (link != nil )
-			link.attr("stroke", "#ddd")
+		if (link != null) {
+			link.each(function(l) { 
+				d3.select(this).attr("stroke", "#ddd")
 				.attr("stroke-opacity", 0.8)
+			})
+		}
 	}
 
 	// Final act of Network() function is to return the inner 'network()' function.
@@ -333,6 +339,17 @@ d3.select("#data_select").on("change", function(d) {
 		myNetwork.updateData(json)
 	});
 })
+
+// handle download data
+d3.select("#download-input").on("click", function(){
+	myNetwork.setData()
+	var saveLinks = [];
+	myNetwork.allData.links.forEach(function(val, i){
+		saveLinks.push({source: val.source.name, target: val.target.name});
+	});
+	var blob = new Blob([window.JSON.stringify({"nodes": myNetwork.allData.nodes, "links": saveLinks})], {type: "text/plain;charset=utf-8"});
+	window.saveAs(blob, "mydag.json");
+});
 
 var run = function() {
 	dfile = d3.select("#data_select").property("value")
