@@ -54,6 +54,10 @@ var Network = function() {
 			.force('link', d3.forceLink().id(function(d){return d.name})
 				.links(allData.links).distance(50))
 			.on('tick', update)
+		if (fixed) {
+			simulation.alphaTarget(0)
+			simulation.alpha(0)
+		}
 	}
 	network.allData = allData
 
@@ -85,6 +89,10 @@ var Network = function() {
 			.force('charge', d3.forceManyBody().strength(-200))
 			.force('center', d3.forceCenter(width/2, height/2))
 			.on('tick', update)
+		if (fixed) {
+			simulation.alphaTarget(0)
+			simulation.alpha(0)
+		}
 
 		link.remove()
 		node.remove()
@@ -171,6 +179,7 @@ var Network = function() {
 
 		node.enter().append("circle")
 			.attr("class", "node")
+		        .merge(node)
 			.attr("id", function(d){return d.name+"-node"})
 			.attr("cx", function(d) {return d.x})
 			.attr("cy", function(d) {return d.y})
@@ -180,13 +189,18 @@ var Network = function() {
 			.style("stroke-width", 1.0)
 			.call(d3.drag()
 				.on("start", dragstarted)
-				.on("drag", dragged))
+				.on("drag", dragged)
+				.on("end", dragstopped))
 
 		node.on("mouseover", showDetails)
 			.on("mouseout", hideDetails)
 		//node.on("click", exposeDetails)
 		node.exit().remove()
-
+       /*         nodesG.selectAll("circle.node")*/
+			//.data(allData.nodes, function(d) {return d ? d.name+"-node": this.id;})
+			//.call(d3.drag()
+				//.on("start", dragstarted)
+				/*.on("drag", dragged))*/
 	}
 	// enter/exit display for texts
 	var updateTexts = function() { 
@@ -196,6 +210,7 @@ var Network = function() {
 		text.enter().append("text")
 			.attr("class", "info")
 			.attr("id", function(d){return d.name+"-text"})
+		        .merge(text)
 			.attr("x", function(d) {return d.x})
 			.attr("y", function(d) {return d.y})
 			.attr("font-size", 6)
@@ -203,6 +218,10 @@ var Network = function() {
 			.style("stroke", "black")
 			.style("stroke-width", 0.5)
 			.text(d => d.name)
+			.call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragstopped))
 		text.exit().remove()
 	}
 
@@ -213,12 +232,17 @@ var Network = function() {
 		link.enter().append("line")
 			.attr("class", "link")
 			.attr("stroke", "#ddd")
+		        .merge(link)
 			.attr("id", function(d){return d.source.name + "_" + d.target.name;})
 			.attr("stroke-opacity", 0.8)
 			.attr("x1", function(d) {return d.source.x})
 			.attr("y1", function(d) {return d.source.y})
 			.attr("x2", function(d) {return d.target.x})
 			.attr("y2", function(d) {return d.target.y})
+			.call(d3.drag()
+				.on("start", dragstarted)
+				.on("drag", dragged)
+				.on("end", dragstopped))
 		link.append("title")
 			.text(function(d){return d.type})
 
@@ -227,6 +251,7 @@ var Network = function() {
 
 	function dragstarted(d) {
 		if (!d3.event.active) simulation.alphaTarget(0.3).restart()
+		//simulation.restart()
 		d.fx = d.x;
 		d.fy = d.y;
 	}
@@ -234,6 +259,10 @@ var Network = function() {
 	function dragged(d) {
 		d.fx = d3.event.x;
 		d.fy = d3.event.y;
+	}
+
+	function dragstopped(d) {
+		simulation.stop()
 	}
 
 	// Helper function that returns stroke color for
@@ -301,8 +330,8 @@ var Network = function() {
 			.style("stroke-width", function(n) { if (!n.searched) {return 1.0} else {return 2.0}})
 		if (link != null) {
 			link.each(function(l) { 
-				d3.select(this).attr("stroke", "#ddd")
-				.attr("stroke-opacity", 0.8)
+				d3.select(this).style("stroke", "#ddd")
+				.style("stroke-opacity", 0.5)
 			})
 		}
 	}
