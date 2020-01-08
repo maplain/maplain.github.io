@@ -1,5 +1,7 @@
 // root = exports ? this
 
+var fixed = true
+
 var Network = function() {
 	// variables we want to access
 	// in multiple places of Network
@@ -15,7 +17,6 @@ var Network = function() {
 	var nodesG = null
 	var linksG = null
 	var textsG = null
-	var usesG = null
 	// these will point to the circles and lines
 	// of the nodes and links
 	var node = null
@@ -46,7 +47,6 @@ var Network = function() {
 		linksG = vis.append("g").attr("id", "links")
 		nodesG = vis.append("g").attr("id", "nodes")
 		textsG = vis.append("g").attr("id", "texts")
-		usesG = vis.append("g").attr("id", "uses")
 
 		simulation = d3.forceSimulation(allData.nodes)
 			.force('charge', d3.forceManyBody().strength(-200))
@@ -54,16 +54,6 @@ var Network = function() {
 			.force('link', d3.forceLink().id(function(d){return d.name})
 				.links(allData.links).distance(50))
 			.on('tick', update)
-
-		var dragHandler = d3.drag()
-			.on("drag", function () {
-				d3.select(this)
-					.attr("x", d3.event.x)
-					.attr("y", d3.event.y);
-			});
-
-		dragHandler(usesG.selectAll("use"));
-
 	}
 
 	// The update() function performs the bulk of the
@@ -77,23 +67,24 @@ var Network = function() {
 		// curNodesData = filterNodes(allData.nodes)
 		// curLinksData = filterLinks(allData.links, curNodesData)
 
-		// reset nodes in force layout
-		// simulation.nodes(curNodesData)
-
 		// enter / exit for nodes
 		updateNodes()
-
 		updateTexts()
-		// simulation.force('link', d3.forceLink().links(curLinksData))
 		updateLinks()
-
-		updateUses()
 	}
 
 	network.updateData = function(newData) { 
 		allData = setupData(newData)
-		//link.remove()
-		//node.remove()
+		simulation.nodes(allData.nodes)
+			.force('link', d3.forceLink().id(function(d){return d.name})
+				.links(allData.links).distance(50))
+			.force('charge', d3.forceManyBody().strength(-200))
+			.force('center', d3.forceCenter(width/2, height/2))
+			.on('tick', update)
+
+		link.remove()
+		node.remove()
+		simulation.restart()
 		update()
 	}
 
@@ -101,14 +92,29 @@ var Network = function() {
 	// point to node instances
 	// Returns modified data
 	var setupData = function(data) { 
-		data.nodes.forEach(function(n){ 
-			// set initial x/y to values within the width/height
-			// of the visualization
-			n.x = randomnumber=Math.floor(Math.random()*width)
-			n.y = randomnumber=Math.floor(Math.random()*height)
-			// add radius to the node so we can use it later
-			n.radius = 10
-		})
+		if (!fixed) {
+			data.nodes.forEach(function(n){ 
+				// set initial x/y to values within the width/height
+				// of the visualization
+				n.x = randomnumber=Math.floor(Math.random()*width)
+				n.y = randomnumber=Math.floor(Math.random()*height)
+				// add radius to the node so we can use it later
+				n.radius = 10
+			})
+		} else {
+			var xmax = d3.max(data.nodes, d=>d.x)
+			var ymax = d3.max(data.nodes, d=>d.y)
+			data.nodes.forEach(function(n){ 
+				if (n.x && n.y && n.x != 0 && n.y != 0 ) {
+					n.fx = width*n.x/(xmax*1.5)
+					n.fy = height*n.y/(ymax*1.5)
+				} else {
+					n.x = randomnumber=Math.floor(Math.random()*width)
+					n.y = randomnumber=Math.floor(Math.random()*height)
+				}
+				n.radius = 10
+			})
+		}
 
 		// switch links to point to node objects instead of id's
 		data.links.forEach(function(l) {
@@ -217,23 +223,6 @@ var Network = function() {
 		link.exit().remove()
 	}
 
-	// enter/exit display for uses
-	var updateUses= function() { 
-		uses = usesG.selectAll("use")
-			.data(allData.nodes, function(d) {return d ? d.name+"-use": this.id;})
-
-		uses.enter().append("use")
-			.merge(uses)
-			.attr("id", function(d){return d.name+"-use"})
-			.attr("href", function(d){return d.name+"-node"})
-			.attr("x", function(d){return d.x})
-			.attr("y", function(d){return d.y})
-			.attr("fill", "#039BE5")
-			.style("stroke", "black")
-			.style("stroke-width", 0.5)
-		uses.exit().remove()
-	}
-
 	function dragstarted(d) {
 		if (!d3.event.active) simulation.alphaTarget(0.3).restart()
 		d.fx = d.x;
@@ -260,12 +249,14 @@ var Network = function() {
 	var showDetails = function(d,i) { 
        /*         content = '<p class="main">' + d.name + '</span></p>'*/
 		/*content += '<hr class="tooltip-hr">'*/
-		content = '<p class="main">' + d.company+ '</span></p>'
-		if (d.link) {
-			content += '<hr class="tooltip-hr">'
-			content += '<p class="main">' + d.link + '</span></p>'
+		if (d.company != "") {
+			content = '<p class="main">' + d.company+ '</span></p>'
+			if (d.link) {
+				content += '<hr class="tooltip-hr">'
+				content += '<p class="main">' + d.link + '</span></p>'
+			}
+			tooltip.showTooltip(content,d3.event)
 		}
-		tooltip.showTooltip(content,d3.event)
 
 		// higlight connected links
 		if (link != nil)  {
@@ -319,7 +310,35 @@ var Network = function() {
 //  d3.json "data/#{dataFile}", (json) ->
 //    myNetwork.updateData(json)
 
-d3.json("data/cloud_native_virtualization.json").then(function(json) {
-	myNetwork = Network();
-	myNetwork("#vis", json);
-});
+/*# Activate selector button*/
+//var activate = function(group, link) { 
+  //d3.selectAll("##{group} a").classed("active", false)
+  //d3.select("##{group} ##{link}").classed("active", true)
+/*}*/
+
+var myNetwork = Network()
+
+d3.select("#coordinates_select").on("change", function(d) { 
+	newconf = d3.select(this).property("value")
+	fixed = (newconf == "true")
+	dfile = d3.select("#data_select").property("value")
+	d3.json(`data/${dfile}`).then(function(json) {
+		myNetwork.updateData(json)
+	});
+})
+
+d3.select("#data_select").on("change", function(d) { 
+	dfile = d3.select("#data_select").property("value")
+	d3.json(`data/${dfile}`).then(function(json) {
+		myNetwork.updateData(json)
+	});
+})
+
+var run = function() {
+	dfile = d3.select("#data_select").property("value")
+	d3.json(`data/${dfile}`).then(function(json) {
+		myNetwork("#vis", json);
+	});
+}
+
+run()

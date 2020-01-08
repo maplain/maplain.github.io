@@ -1,0 +1,26 @@
+{
+  "nodes": [
+    {
+      "name": "wow",
+      "company": "",
+      "link": "",
+      "type": "",
+      "x": 409.8812,
+      "y": 179.22124
+    },
+    {
+      "name": "new",
+      "company": "",
+      "link": "",
+      "type": "",
+      "x": 312.09296,
+      "y": 344.9215
+    }
+  ],
+  "links": [
+    {
+      "source": "new",
+      "target": "wow"
+    }
+  ]
+}

@@ -20,6 +20,8 @@ type Node struct {
 	Company string   `json:"company"`
 	Link    string   `json:"link"`
 	Type    NodeType `json:"type"`
+	X       float32  `json:"x"`
+	Y       float32  `json:"y"`
 }
 
 type Link struct {
