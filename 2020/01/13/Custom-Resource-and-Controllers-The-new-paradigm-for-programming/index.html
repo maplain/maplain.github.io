@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
-<meta name="keywords" content="contemplation">
+  <meta name="description" content="Paradigm?According to Wikipedia, the explanation for paradigm is “In science and philosophy, a paradigm (/ˈpærədaɪm/) is a distinct set of concepts or thought patterns, including theories, research me">
+<meta name="keywords" content="Kubernetes, CRD, controller, operator, programming, primitives">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Primitives and Structures">
-<meta property="og:url" content="http://maplain.github.io/2019/12/29/Primitives-and-Structures/index.html">
+<meta property="og:title" content="Custom Resource and Controllers: The new paradigm for programming">
+<meta property="og:url" content="http://maplain.github.io/2020/01/13/Custom-Resource-and-Controllers-The-new-paradigm-for-programming/index.html">
 <meta property="og:site_name" content="Fangyuan Li&#39;s Blog">
-<meta property="og:description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
+<meta property="og:description" content="Paradigm?According to Wikipedia, the explanation for paradigm is “In science and philosophy, a paradigm (/ˈpærədaɪm/) is a distinct set of concepts or thought patterns, including theories, research me">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-30T06:19:37.938Z">
+<meta property="og:updated_time" content="2020-01-14T20:15:00.364Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Primitives and Structures">
-<meta name="twitter:description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
-  <link rel="canonical" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
+<meta name="twitter:title" content="Custom Resource and Controllers: The new paradigm for programming">
+<meta name="twitter:description" content="Paradigm?According to Wikipedia, the explanation for paradigm is “In science and philosophy, a paradigm (/ˈpærədaɪm/) is a distinct set of concepts or thought patterns, including theories, research me">
+  <link rel="canonical" href="http://maplain.github.io/2020/01/13/Custom-Resource-and-Controllers-The-new-paradigm-for-programming/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Primitives and Structures | Fangyuan Li's Blog</title>
+  <title>Custom Resource and Controllers: The new paradigm for programming | Fangyuan Li's Blog</title>
   
 
 
@@ -208,7 +208,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2020/01/13/Custom-Resource-and-Controllers-The-new-paradigm-for-programming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fangyuan ♥ Yixin">
@@ -222,7 +222,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Primitives and Structures
+          <h1 class="post-title" itemprop="name headline">Custom Resource and Controllers: The new paradigm for programming
 
               
             
@@ -242,11 +242,21 @@
                 
               
 
-              <time title="Created: 2019-12-29 22:13:03 / Modified: 22:19:37" itemprop="dateCreated datePublished" datetime="2019-12-29T22:13:03-08:00">2019-12-29</time>
+              <time title="Created: 2020-01-13 16:42:40" itemprop="dateCreated datePublished" datetime="2020-01-13T16:42:40-08:00">2020-01-13</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2020-01-14 12:15:00" itemprop="dateModified" datetime="2020-01-14T12:15:00-08:00">2020-01-14</time>
+              </span>
             
           
 
@@ -261,8 +271,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the way they’re constructed to form the architecture or the pattern of the structures.  </p>
-<p>This will be the focus of this blog.</p>
+        <h1 id="Paradigm"><a href="#Paradigm" class="headerlink" title="Paradigm?"></a>Paradigm?</h1><p>According to <a href="https://en.wikipedia.org/wiki/Paradigm">Wikipedia</a>, the explanation for paradigm is “In science and philosophy, a paradigm (/ˈpærədaɪm/) is a distinct set of concepts or thought patterns, including theories, research methods, postulates, and standards for what constitutes legitimate contributions to a field.” And this is exactly what Custom Resource + Controllers provide.</p>
+<h2 id="Interfaces"><a href="#Interfaces" class="headerlink" title="Interfaces"></a>Interfaces</h2><h3 id="Duck-typing"><a href="#Duck-typing" class="headerlink" title="Duck typing"></a>Duck typing</h3><p>Watch this talk on Kubecon: <a href="https://youtu.be/Mb8c5SP-Sw0">Extending Knative for Fun and Profit - Matt Moore &amp;<br>Ville Aikas, Google</a></p>
+<h3 id="Polymorphism"><a href="#Polymorphism" class="headerlink" title="Polymorphism"></a>Polymorphism</h3><p>Watch this talk on Kubecon: <a href="https://youtu.be/kldVg63Utuw">Polymorphic Reconcilers in Kubernetes - Advanced<br>DuckTyping - Scott Nichols &amp; Matt Moore, Google</a></p>
+<h3 id="Subresource"><a href="#Subresource" class="headerlink" title="Subresource"></a>Subresource</h3><p>see <a href="https://github.com/kubernetes/community/blob/master/contributors/design-proposals/autoscaling/horizontal-pod-autoscaler.md#scale-subresource">scale subresource in HPA</a>.</p>
+<p>Subresources can be either data or service. Think of subresources as virtualized objects, interfaces of CR. If the subresource is data, it is a subset of all CR’s fields to describe a specific aspect; if the subresource is a service, it is the verb to interact with CR object.</p>
+<ol>
+<li>status, scale are examples of the former;</li>
+<li>log, exec, portforward are examples for the latter.</li>
+</ol>
+<p>See <a href="https://github.com/kubernetes/kubernetes/issues/72637">https://github.com/kubernetes/kubernetes/issues/72637</a> for discussions on the support of arbitrary subresources for custom resources.</p>
+<h4 id="subresource-controller"><a href="#subresource-controller" class="headerlink" title="subresource + controller"></a>subresource + controller</h4><p>However you wanna customize your system, you can do it easily with horizontal scalability.</p>
+<h2 id="Design-Patterns"><a href="#Design-Patterns" class="headerlink" title="Design Patterns"></a>Design Patterns</h2><p>Watch this talk on Kubecon: <a href="https://youtu.be/ph4a9TzK29U">Growth and Design Patterns in the Extensions<br>Ecosystem - Eric Tune, Google</a></p>
 
     </div>
 
@@ -274,13 +294,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/contemplation/" rel="tag"># contemplation</a>
+            <a href="/tags/Kubernetes-CRD-controller-operator-programming-primitives/" rel="tag"># Kubernetes, CRD, controller, operator, programming, primitives</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/01/k8s-cloud-provider/" rel="next" title="Notes on Kubernetes Cloud Provider">
-                <i class="fa fa-chevron-left"></i> Notes on Kubernetes Cloud Provider
+              <a href="/2020/01/03/Cloud-Native-Virtualization-Technologies/" rel="next" title="Cloud Native Virtualization Technologies">
+                <i class="fa fa-chevron-left"></i> Cloud Native Virtualization Technologies
               </a>
             
           </div>
@@ -288,8 +308,8 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/01/03/Cloud-Native-Virtualization-Technologies/" rel="prev" title="Cloud Native Virtualization Technologies">
-                Cloud Native Virtualization Technologies <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/13/Leveld-API-and-CAS/" rel="prev" title="CAS, Level-based API and Agile">
+                CAS, Level-based API and Agile <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -321,8 +341,17 @@
 
   <aside id="sidebar" class="sidebar">
     <div class="sidebar-inner">
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
 
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -362,6 +391,23 @@
 
         </div>
       </div>
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Paradigm"><span class="nav-number">1.</span> <span class="nav-text">Paradigm?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Interfaces"><span class="nav-number">1.1.</span> <span class="nav-text">Interfaces</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Duck-typing"><span class="nav-number">1.1.1.</span> <span class="nav-text">Duck typing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Polymorphism"><span class="nav-number">1.1.2.</span> <span class="nav-text">Polymorphism</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subresource"><span class="nav-number">1.1.3.</span> <span class="nav-text">Subresource</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#subresource-controller"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">subresource + controller</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Design-Patterns"><span class="nav-number">1.2.</span> <span class="nav-text">Design Patterns</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
     </div>
   </aside>
