@@ -65,7 +65,7 @@
 <meta property="og:site_name" content="Fangyuan Li&#39;s Blog">
 <meta property="og:description" content="semaphoreLet’s take a look at an over-simplified version of Golang runtime’s semaphore lock() implementation. If you’re interested, see the original version here. Before you start, let’s make some ass">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-14T20:15:01.624Z">
+<meta property="og:updated_time" content="2020-01-15T00:31:36.562Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CAS, Level-based API and Agile">
 <meta name="twitter:description" content="semaphoreLet’s take a look at an over-simplified version of Golang runtime’s semaphore lock() implementation. If you’re interested, see the original version here. Before you start, let’s make some ass">
@@ -255,7 +255,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2020-01-14 12:15:01" itemprop="dateModified" datetime="2020-01-14T12:15:01-08:00">2020-01-14</time>
+                <time title="Modified: 2020-01-14 16:31:36" itemprop="dateModified" datetime="2020-01-14T16:31:36-08:00">2020-01-14</time>
               </span>
             
           
@@ -292,7 +292,7 @@
 <h1 id="Compare-and-Set"><a href="#Compare-and-Set" class="headerlink" title="Compare and Set."></a>Compare and Set.</h1><p>Now, let me try to write some ugly pseudo code to summarize.</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">run() &#123;</span><br><span class="line">beginning:</span><br><span class="line">   # Make observations</span><br><span class="line">   o := observe()</span><br><span class="line">   # Act based on observations and <span class="built_in">make</span> <span class="built_in">new</span> proposed changes</span><br><span class="line">   p := act(o)</span><br><span class="line">   # Post <span class="built_in">new</span> proposals assuming my past observations still hold, <span class="keyword">if</span> not, <span class="keyword">go</span> back to the beginning;</span><br><span class="line">   goback := <span class="literal">false</span></span><br><span class="line">   atomic &#123;</span><br><span class="line">	   <span class="keyword">if</span> o == observe() &#123;</span><br><span class="line">              setp(p)</span><br><span class="line">              goback = <span class="literal">false</span></span><br><span class="line">	   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              goback = <span class="literal">true</span></span><br><span class="line">	   &#125;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">if</span> goback &#123;</span><br><span class="line">      <span class="keyword">goto</span> beginning</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="Leveled-API"><a href="#Leveled-API" class="headerlink" title="Leveled API"></a>Leveled API</h1><p>Feels familiar? This is called level-based API in Kubernetes. By “level-based”, we mean:</p>
+<h1 id="Leveled-API"><a href="#Leveled-API" class="headerlink" title="Leveled API"></a>Leveled API</h1><p>Feels familiar? This is actually a very typical controller in high level. And it’s called level-based API in Kubernetes. By “level-based”, we mean:</p>
 <ol>
 <li>we make no other assumptions about the world except our last observations;</li>
 <li>we make decisions completely based on our assumptions;</li>
