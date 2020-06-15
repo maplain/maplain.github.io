@@ -57,19 +57,19 @@
   };
 </script>
 
-  <meta name="description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
-<meta name="keywords" content="contemplation">
+  <meta name="description" content="Something magical happens when MetalLB is used in the following fashion:  MetalLB is deployed in a dedicated LB cluster; LB cluster is deployed in front of all workload clusters; all Service type=Load">
+<meta name="keywords" content="Cloud Native, Load Balancer">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Primitives and Structures">
-<meta property="og:url" content="http://maplain.github.io/2019/12/29/Primitives-and-Structures/index.html">
+<meta property="og:title" content="Cloud Native L4 Load Balancer: MetalLB, NSX-T and Maglev">
+<meta property="og:url" content="http://maplain.github.io/2020/06/15/Cloud-Native-L4-Load-Balancer-MetalLB-NSX-T-and-Maglev/index.html">
 <meta property="og:site_name" content="Fangyuan Li&#39;s Blog">
-<meta property="og:description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
+<meta property="og:description" content="Something magical happens when MetalLB is used in the following fashion:  MetalLB is deployed in a dedicated LB cluster; LB cluster is deployed in front of all workload clusters; all Service type=Load">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-12-30T06:19:37.938Z">
+<meta property="og:updated_time" content="2020-06-15T19:34:21.945Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Primitives and Structures">
-<meta name="twitter:description" content="It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the w">
-  <link rel="canonical" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
+<meta name="twitter:title" content="Cloud Native L4 Load Balancer: MetalLB, NSX-T and Maglev">
+<meta name="twitter:description" content="Something magical happens when MetalLB is used in the following fashion:  MetalLB is deployed in a dedicated LB cluster; LB cluster is deployed in front of all workload clusters; all Service type=Load">
+  <link rel="canonical" href="http://maplain.github.io/2020/06/15/Cloud-Native-L4-Load-Balancer-MetalLB-NSX-T-and-Maglev/">
 
 
 <script id="page.configurations">
@@ -78,7 +78,7 @@
   };
 </script>
 
-  <title>Primitives and Structures | Fangyuan Li's Blog</title>
+  <title>Cloud Native L4 Load Balancer: MetalLB, NSX-T and Maglev | Fangyuan Li's Blog</title>
   
 
 
@@ -208,7 +208,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2020/06/15/Cloud-Native-L4-Load-Balancer-MetalLB-NSX-T-and-Maglev/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fangyuan ♥ Yixin">
@@ -222,7 +222,7 @@
       <header class="post-header">
 
         
-          <h1 class="post-title" itemprop="name headline">Primitives and Structures
+          <h1 class="post-title" itemprop="name headline">Cloud Native L4 Load Balancer: MetalLB, NSX-T and Maglev
 
               
             
@@ -242,7 +242,7 @@
                 
               
 
-              <time title="Created: 2019-12-29 22:13:03 / Modified: 22:19:37" itemprop="dateCreated datePublished" datetime="2019-12-29T22:13:03-08:00">2019-12-29</time>
+              <time title="Created: 2020-06-15 12:24:50 / Modified: 12:34:21" itemprop="dateCreated datePublished" datetime="2020-06-15T12:24:50-07:00">2020-06-15</time>
             </span>
           
             
@@ -261,8 +261,108 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the way they’re constructed to form the architecture or the pattern of the structures.  </p>
-<p>This will be the focus of this blog.</p>
+        <p>Something magical happens when MetalLB is used in the following fashion:</p>
+<ol>
+<li>MetalLB is deployed in a dedicated LB cluster;</li>
+<li>LB cluster is deployed in front of all workload clusters;</li>
+<li>all Service type=LoadBalancer are projected into the LB cluster;</li>
+</ol>
+<p>Compare this setup with a traditional proprietary SDN, eg: NSX-T and Cloud LoadBalancer like Maglev used in GCP.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MetalLB in LB Cluster with Service Projected</th>
+<th>NSX-T</th>
+<th>Maglev</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Control Plane</td>
+<td>K8s API Server</td>
+<td>NSX-T Manager</td>
+<td>not mentioned, Borg?</td>
+</tr>
+<tr>
+<td>Control Plane concurrency limit</td>
+<td>1 million per second?</td>
+<td>199 per second(NSX-T 2.5)</td>
+<td>not mentioned, Borg?</td>
+</tr>
+<tr>
+<td>CP Database</td>
+<td>Etcd</td>
+<td>Corfu</td>
+<td>not mentioned, Chubby?</td>
+</tr>
+<tr>
+<td>Deployment Form</td>
+<td>VM or most commonly Containers</td>
+<td>VM</td>
+<td>unclear, mentioned Maglev deployment shares the same machines as other Applications, Borg?</td>
+</tr>
+<tr>
+<td>South-North Data Plane</td>
+<td>K8s Nodes</td>
+<td>NSX-T Edge Node</td>
+<td>not mentioned, Borg nodes?</td>
+</tr>
+<tr>
+<td>South-North <strong>Data Plane technology</strong></td>
+<td>kube-proxy: iptables/ipvs</td>
+<td>Nginx</td>
+<td>optimized kernel-free datapath module</td>
+</tr>
+<tr>
+<td>South-North Datapath</td>
+<td>DNAT only; two hops in total: VIP-&gt;NodeIP→PodIP;</td>
+<td>DNAT, DSR etc; one hop: VIP-&gt;PodIP;</td>
+<td>DSR; hardware encapsulator between router and Maglev for fast overlay; one hop: VIP→Service EP;</td>
+</tr>
+<tr>
+<td>Data Plane Programmability</td>
+<td>K8s Controller + CR/Core Objects</td>
+<td>NSX-T Data Model: LB + VirtualServer + ServerPool</td>
+<td>MagLev Config objects which are committed atomically(implies a CP system like etcd or ZooKeeper(Google Chubby));</td>
+</tr>
+<tr>
+<td>States management</td>
+<td>None</td>
+<td>Edge Active + Standby deployment</td>
+<td>Maglev Consistent Hashing, minimize interruption yet optimize scale as much as possible, truly distributed; interruption rate is tunable by parameters in the consistent hashing algorithm;</td>
+</tr>
+<tr>
+<td>cluster scalability</td>
+<td>it doesn’t handle states, so unlimited</td>
+<td>at most 10 nodes per edge cluster. in total, at most 160 edge nodes. one LB is only mapped to at most one pair of edge nodes though.</td>
+<td>Maglev is stateless because it handles states in a stateless way(consistent hashing). so unlimited</td>
+</tr>
+</tbody></table>
+<p>Clearly, the opportunity to build an enterprise-grade Distributed Software LB lies in the <strong>Dataplane</strong>.</p>
+<p>Note:</p>
+<ol>
+<li><strong>Antrea</strong> serves as the lightweight version of NSX-T <strong>open vSwitch</strong> based dataplane agent;</li>
+<li><strong>Cilium</strong> optimizes Dataplane using <strong>eBPF</strong> to replace vanilla Kube-proxy. That means we could potentially use Cilium in MetalLB Dedicated K8s Cluster to achieve better performance;</li>
+</ol>
+<p>Proposal:</p>
+<ol>
+<li>Use Cilium like <strong>eBPF-based</strong> module to optimize <strong>dataplane</strong><ol>
+<li>could be deployed as Daemonset;</li>
+<li>could be used to replace kube-proxy;</li>
+</ol>
+</li>
+<li>Use Maglev <strong>Consistent Hashing</strong> to build truly distributed LB with <strong>states</strong> handled, meaning:<ol>
+<li>connection <strong>stickiness</strong> is preserved as much as possible;</li>
+<li><strong>scalable</strong> like Cloud; not traditional Active-standy or Active-Active model any more!</li>
+</ol>
+</li>
+</ol>
+<p>Besides,</p>
+<p>based on Maglev paper, we need to add the following improvements <strong>based</strong> on <strong>MetalLB</strong> to implement something like Maglev:</p>
+<ol>
+<li>QoS: divide Services between multiple shards of LBs in the same cluster in order to achieve performance isolation;</li>
+<li>Aggregation of VIP by a component like Routes Reflector sitting in front of all MetalLB BGP peers before all VIPs are published to the ToR Router/Gateway;</li>
+</ol>
 
     </div>
 
@@ -274,13 +374,13 @@
           
         
         <div class="post-tags">
-            <a href="/tags/contemplation/" rel="tag"># contemplation</a>
+            <a href="/tags/Cloud-Native-Load-Balancer/" rel="tag"># Cloud Native, Load Balancer</a>
           
         </div>
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
-              <a href="/2019/08/01/k8s-cloud-provider/" rel="next" title="Notes on Kubernetes Cloud Provider">
-                <i class="fa fa-chevron-left"></i> Notes on Kubernetes Cloud Provider
+              <a href="/2020/01/13/Leveld-API-and-CAS/" rel="next" title="CAS, Level-based API and Agile">
+                <i class="fa fa-chevron-left"></i> CAS, Level-based API and Agile
               </a>
             
           </div>
@@ -288,10 +388,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-              <a href="/2020/01/03/Cloud-Native-Virtualization-Technologies/" rel="prev" title="Cloud Native Virtualization Technologies">
-                Cloud Native Virtualization Technologies <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
     </footer>
