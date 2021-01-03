@@ -201,6 +201,94 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2021/01/03/矛盾和统一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fangyuan ♥ Yixin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fangyuan Li's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/01/03/矛盾和统一/" class="post-title-link" itemprop="url">矛盾和统一</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-01-03 15:46:50 / Modified: 15:52:15" itemprop="dateCreated datePublished" datetime="2021-01-03T15:46:50-08:00">2021-01-03</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>如果说人的异化以及”大理性“和”小理性“的失调是马克思主义学者们对现代资本主义的控诉，那么:</p>
+<ol>
+<li>是否存在纯粹建立在“大理性”或者“小理性”上的国家？</li>
+<li>如果有，比如古希腊和古罗马的某些时期:)，那么由他们的发展历程是否可以发现所谓的“矛盾”恰恰构成了其他国家或时期社会稳定的基础？</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2021/01/03/客观/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1202,170 +1290,12 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/08/01/k8s-cloud-provider/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fangyuan ♥ Yixin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fangyuan Li's Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/01/k8s-cloud-provider/" class="post-title-link" itemprop="url">Notes on Kubernetes Cloud Provider</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-08-01 09:42:20" itemprop="dateCreated datePublished" datetime="2019-08-01T09:42:20-07:00">2019-08-01</time>
-            </span>
-          
-            
-
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-12-29 21:08:49" itemprop="dateModified" datetime="2019-12-29T21:08:49-08:00">2019-12-29</time>
-              </span>
-            
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <h2 id="Terminology"><a href="#Terminology" class="headerlink" title="Terminology"></a>Terminology</h2><p>cloudprovider.Interface: <a href="https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43">https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L43</a></p>
-<p>type loadbalancer interface: <a href="https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L106">https://github.com/kubernetes/cloud-provider/blob/master/cloud.go#L106</a></p>
-<ol>
-<li>GetLoadbalancer</li>
-<li>GetLoadBalancerName</li>
-<li>EnsureLoadBalancer</li>
-<li>UpdateLoadBalancer  </li>
-<li>EnsureLoadBalancerDeleted</li>
-</ol>
-<h2 id="Components"><a href="#Components" class="headerlink" title="Components"></a>Components</h2><h3 id="Cloud-controller-manager"><a href="#Cloud-controller-manager" class="headerlink" title="Cloud controller manager"></a>Cloud controller manager</h3><p>k8s.io/kubernetes/cmd/cloud-controller-manager<br>one package: app, which contains the core logic of cloud-controller-manager.<br>Starts:</p>
-<ol>
-<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/cloud/node_controller.go#L61">Node controller</a></li>
-<li><a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/cloud/node_lifecycle_controller.go#L67">Node lifecycle controller</a>    </li>
-<li><a href="https://github.com/kubernetes/kubernetes/tree/master/pkg/controller/service">Service controller</a>    </li>
-<li><a href="https://github.com/kubernetes/kubernetes/tree/master/pkg/controller/route">Route controller</a>    </li>
-</ol>
-<p>Ref: <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L169">here</a></p>
-<h3 id="Service-Controller"><a href="#Service-Controller" class="headerlink" title="Service Controller"></a>Service Controller</h3><p>Service controller will be managing LoadBalancer type of service, see <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L238">here</a> for the initialization.</p>
-<ol>
-<li>Run() starts a group of workers <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L205">here</a></li>
-<li>Worker() calls processNextWorkItem();</li>
-<li>processNextWorkItem() calls syncService();</li>
-<li>syncService() by default calls processServiceCreateOrUpdate();</li>
-<li>processServiceCreateOrUpdate() calls syncLoadBalancerIfNeeded() if needed;</li>
-<li>syncLoadBalancerIfNeeded() calls ensureLoadBalancer() if loadbalancer needs to be created;</li>
-<li>Calls cloud provider’s <a href="https://github.com/kubernetes/kubernetes/blob/master/pkg/controller/service/service_controller.go#L374">EnsureLoadBalancer</a> through cloudprovider.Interface with a group of nodes;</li>
-</ol>
-<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><h3 id="vSphere-out-of-tree-Cloud-Provider"><a href="#vSphere-out-of-tree-Cloud-Provider" class="headerlink" title="vSphere out-of-tree Cloud Provider"></a>vSphere out-of-tree Cloud Provider</h3><ol>
-<li>Vsphere-cloud-controller-manager is a cobra command which invokes <a href="https://github.com/kubernetes/cloud-provider-vsphere/blob/master/cmd/vsphere-cloud-controller-manager/main.go#L99">app.Run</a>;</li>
-<li><a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L115">Run</a> starts above mentioned <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L169">four controllers</a> and <a href="https://github.com/kubernetes/kubernetes/blob/master/cmd/cloud-controller-manager/app/controllermanager.go#L276">here</a>;</li>
-</ol>
-<p>As a result, vsphere-cloud-provider-manager is a concrete “implementation” of cloud-controller-manager upstream in the sense that:</p>
-<ol>
-<li>Leverages the same app package to Run;</li>
-<li>Implements cloudprovider.Interface;</li>
-</ol>
-<h3 id="Azure-out-of-tree-Cloud-provider"><a href="#Azure-out-of-tree-Cloud-provider" class="headerlink" title="Azure out-of-tree Cloud provider"></a>Azure out-of-tree Cloud provider</h3><ol>
-<li>Azure cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-azure/blob/v0.2.0/cloud-controller-manager/main.go#L84">here</a>;</li>
-</ol>
-<h3 id="Aws-out-of-tree-Cloud-Provider"><a href="#Aws-out-of-tree-Cloud-Provider" class="headerlink" title="Aws out-of-tree Cloud Provider"></a>Aws out-of-tree Cloud Provider</h3><ol>
-<li>Aws cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-aws/blob/master/cmd/aws-cloud-controller-manager/main.go#L76">here</a>;</li>
-</ol>
-<h3 id="Openstack-out-of-tree-Cloud-Provider"><a href="#Openstack-out-of-tree-Cloud-Provider" class="headerlink" title="Openstack out-of-tree Cloud Provider"></a>Openstack out-of-tree Cloud Provider</h3><ol>
-<li>Openstack cloud provider does the same thing <a href="https://github.com/kubernetes/cloud-provider-openstack/blob/master/cmd/openstack-cloud-controller-manager/main.go#L103">here</a>;</li>
-</ol>
-<h3 id="AliCloud-Cloud-Provider"><a href="#AliCloud-Cloud-Provider" class="headerlink" title="AliCloud Cloud Provider"></a>AliCloud Cloud Provider</h3><p>AliCloud Cloud Provider is an exception, seems like it “copies” upstream cloud-controller-manager and other controllers’ code, and made its own modifications.</p>
-<ol>
-<li>Run <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L214">calls</a>  <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L228">MainLoop</a>;</li>
-<li>MainLoop calls <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L210">RunControllers</a>;</li>
-<li>RunControllers calls <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L284">runControllerPV</a> and <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud/blob/master/cmd/cloudprovider/app/ccm.go#L289">runControllerService</a>, which in turn starts its own controllers;</li>
-</ol>
-<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h3><p>To summarize, to implement an out-of-tree cloud provider:</p>
-<ol>
-<li><p>the entry point is app.Run;</p>
-</li>
-<li><p>Have your own implementation of cloudprovider.Interface;</p>
-</li>
-<li><p>Register your own cluster provider by calling cloudprovider.RegisterCloudProvider, because cloud-controller-manager calls <a href="https://github.com/kubernetes/kubernetes/blob/v1.16.0-alpha.2/cmd/cloud-controller-manager/app/controllermanager.go#L119">InitCloudProvider</a> to initialize cloud provider instance;</p>
-</li>
-<li><p>InitCloudProvider uses configured name to get corresponding registered initialization function in an internal map, which can be updated by RegisterCloudProvider;</p>
-</li>
-<li><p>See example <a href="https://github.com/kubernetes/cloud-provider-vsphere/blob/v0.2.1/pkg/cloudprovider/vsphere/cloud.go#L41-L49">here</a> in vsphere cloud provider;</p>
-</li>
-</ol>
-<p>Here is an example I created: <a href="https://github.com/maplain/dummy-k8s-cloud-provider">https://github.com/maplain/dummy-k8s-cloud-provider</a></p>
-<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><p>Cloud Controller Manager: <a href="https://kubernetes.io/docs/concepts/architecture/cloud-controller/">https://kubernetes.io/docs/concepts/architecture/cloud-controller/</a><br>Develop an out-of-tree Cloud Provider: <a href="https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/#out-of-tree">https://kubernetes.io/docs/tasks/administer-cluster/developing-cloud-controller-manager/#out-of-tree</a><br>KEP: <a href="https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/0002-cloud-controller-manager.md#remove-cloud-provider-code-from-kubernetes-core">https://github.com/kubernetes/enhancements/blob/master/keps/sig-cloud-provider/0002-cloud-controller-manager.md#remove-cloud-provider-code-from-kubernetes-core</a></p>
-<h3 id="Out-of-tree-cloud-providers"><a href="#Out-of-tree-cloud-providers" class="headerlink" title="Out-of-tree cloud providers"></a>Out-of-tree cloud providers</h3><p>Vsphere: <a href="https://github.com/kubernetes/cloud-provider-vsphere">https://github.com/kubernetes/cloud-provider-vsphere</a><br>Alibaba: <a href="https://github.com/kubernetes/cloud-provider-alibaba-cloud">https://github.com/kubernetes/cloud-provider-alibaba-cloud</a><br>Azure: <a href="https://github.com/kubernetes/cloud-provider-azure">https://github.com/kubernetes/cloud-provider-azure</a><br>Openstack: <a href="https://github.com/kubernetes/cloud-provider-openstack">https://github.com/kubernetes/cloud-provider-openstack</a><br>Aws: <a href="https://github.com/kubernetes/cloud-provider-aws">https://github.com/kubernetes/cloud-provider-aws</a></p>
-<h3 id="Common-Packages"><a href="#Common-Packages" class="headerlink" title="Common Packages"></a>Common Packages</h3><p><a href="https://github.com/kubernetes/klog">Klog</a> for logging<br><a href="https://godoc.org/gopkg.in/gcfg.v1">Gcfg</a> for config file, which has the same syntax as <a href="https://git-scm.com/docs/git-config#_syntax">git</a></p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+  </nav>
 
 
           </div>
@@ -1397,7 +1327,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1416,7 +1346,9 @@
         
           
         
-        <span class="site-state-item-count">4</span>
+          
+        
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">tags</span>
         
       </div>
