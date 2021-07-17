@@ -201,6 +201,96 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2021/07/16/What-makes-k8s-better/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fangyuan ♥ Yixin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fangyuan Li's Blog">
+    </span>
+      <header class="post-header">
+
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2021/07/16/What-makes-k8s-better/" class="post-title-link" itemprop="url">What makes k8s better</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2021-07-16 23:25:24 / Modified: 23:33:39" itemprop="dateCreated datePublished" datetime="2021-07-16T23:25:24-07:00">2021-07-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+            <p>It’s easy to create a process, but it’s hard to manage its lifecycle. What if it<br>dies, what if resources is insufficient, what if you want to create more<br>replicas, etc.</p>
+<p>It’s easy to make a REST request, but it’s hard to manage its lifecycle. What if<br>it fails, what if you need to make many to achieve one logical goal, what if<br>some of them fail, what if the order matters and changes later, etc.</p>
+<p>Therefore:<br>Q: What’s the difference between a Linux process and a K8s operator running in<br>Pod?</p>
+<p>A: Roughly speaking, pod is a <em>managed</em> process where as process is a pure compute unit, which could be managed by systemd etc.</p>
+<p>Q: What’s the difference between managing some infra resources through making a<br>bunch of REST calls and creating a CRD for a k8s operator?</p>
+<p>A: Roughly speaking, CRD is a <em>managed</em> request. Also yaml is a better user<br>interface.</p>
+<p>Intention reads better than implementation. The system that helps you to focus<br>on intention wins eventually.</p>
+
+          
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2021/01/03/矛盾和统一/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1206,91 +1296,6 @@
   </article>
 
     
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2019/12/29/Primitives-and-Structures/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fangyuan ♥ Yixin">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Fangyuan Li's Blog">
-    </span>
-      <header class="post-header">
-
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/12/29/Primitives-and-Structures/" class="post-title-link" itemprop="url">Primitives and Structures</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2019-12-29 22:13:03 / Modified: 22:19:37" itemprop="dateCreated datePublished" datetime="2019-12-29T22:13:03-08:00">2019-12-29</time>
-            </span>
-          
-            
-
-            
-          
-
-          <br>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-            <p>It’s my belief that history and nature tend to repeat themselves in different scales. Therefore, it’s essential that we have a good understanding, on every level and scale, of the primitives and the way they’re constructed to form the architecture or the pattern of the structures.  </p>
-<p>This will be the focus of this blog.</p>
-
-          
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-    
   </section>
 
   
@@ -1328,7 +1333,7 @@
         
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

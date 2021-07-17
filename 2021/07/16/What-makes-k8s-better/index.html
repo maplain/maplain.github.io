@@ -57,14 +57,18 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Fangyuan Li&#39;s Blog">
-<meta property="og:url" content="http://maplain.github.io/archives/2019/12/index.html">
+  <meta name="description" content="It’s easy to create a process, but it’s hard to manage its lifecycle. What if itdies, what if resources is insufficient, what if you want to create morereplicas, etc. It’s easy to make a REST request,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="What makes k8s better">
+<meta property="og:url" content="http://maplain.github.io/2021/07/16/What-makes-k8s-better/index.html">
 <meta property="og:site_name" content="Fangyuan Li&#39;s Blog">
+<meta property="og:description" content="It’s easy to create a process, but it’s hard to manage its lifecycle. What if itdies, what if resources is insufficient, what if you want to create morereplicas, etc. It’s easy to make a REST request,">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-07-17T06:33:39.553Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Fangyuan Li&#39;s Blog">
-  <link rel="canonical" href="http://maplain.github.io/archives/2019/12/">
+<meta name="twitter:title" content="What makes k8s better">
+<meta name="twitter:description" content="It’s easy to create a process, but it’s hard to manage its lifecycle. What if itdies, what if resources is insufficient, what if you want to create morereplicas, etc. It’s easy to make a REST request,">
+  <link rel="canonical" href="http://maplain.github.io/2021/07/16/What-makes-k8s-better/">
 
 
 <script id="page.configurations">
@@ -73,7 +77,7 @@
   };
 </script>
 
-  <title>Archive | Fangyuan Li's Blog</title>
+  <title>What makes k8s better | Fangyuan Li's Blog</title>
   
 
 
@@ -112,7 +116,7 @@
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -154,7 +158,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     <a href="/archives/" rel="section">Archives</a>
 
@@ -180,24 +184,6 @@
     </ul>
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
 </nav>
 
 </div>
@@ -212,75 +198,109 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 12 posts in total. Keep on posting.
-      </span>
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
-
-        
+  <div id="posts" class="posts-expand">
+    
+    <div class="reading-progress-bar"></div>
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://maplain.github.io/2021/07/16/What-makes-k8s-better/">
 
-      <h2 class="post-title">
-          <a class="post-title-link" href="/2019/12/29/Primitives-and-Structures/" itemprop="url">
-            
-              <span itemprop="name">Primitives and Structures</span>
-            
-          </a>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fangyuan ♥ Yixin">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Fangyuan Li's Blog">
+    </span>
+      <header class="post-header">
+
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">What makes k8s better
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-29T22:13:03-08:00"
-              content="2019-12-29">
-          12-29
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
 
+              
+                
+              
 
+              <time title="Created: 2021-07-16 23:25:24 / Modified: 23:33:39" itemprop="dateCreated datePublished" datetime="2021-07-16T23:25:24-07:00">2021-07-16</time>
+            </span>
+          
+            
+
+            
+          
+
+          <br>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+        <p>It’s easy to create a process, but it’s hard to manage its lifecycle. What if it<br>dies, what if resources is insufficient, what if you want to create more<br>replicas, etc.</p>
+<p>It’s easy to make a REST request, but it’s hard to manage its lifecycle. What if<br>it fails, what if you need to make many to achieve one logical goal, what if<br>some of them fail, what if the order matters and changes later, etc.</p>
+<p>Therefore:<br>Q: What’s the difference between a Linux process and a K8s operator running in<br>Pod?</p>
+<p>A: Roughly speaking, pod is a <em>managed</em> process where as process is a pure compute unit, which could be managed by systemd etc.</p>
+<p>Q: What’s the difference between managing some infra resources through making a<br>bunch of REST calls and creating a CRD for a k8s operator?</p>
+<p>A: Roughly speaking, CRD is a <em>managed</em> request. Also yaml is a better user<br>interface.</p>
+<p>Intention reads better than implementation. The system that helps you to focus<br>on intention wins eventually.</p>
 
     </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+              <a href="/2021/01/03/矛盾和统一/" rel="next" title="矛盾和统一">
+                <i class="fa fa-chevron-left"></i> 矛盾和统一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+          </div>
+        </div>
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
-
+  </div>
 
 
           </div>
           
+
 
         </div>
           
@@ -397,6 +417,10 @@
 
 
   
+  <script src="/js/scrollspy.js?v=7.3.0"></script>
+<script src="/js/post-details.js?v=7.3.0"></script>
+
+
 
   <script src="/js/next-boot.js?v=7.3.0"></script>
 
