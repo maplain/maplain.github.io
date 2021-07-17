@@ -237,11 +237,21 @@
                 
               
 
-              <time title="Created: 2021-07-16 23:25:24 / Modified: 23:33:39" itemprop="dateCreated datePublished" datetime="2021-07-16T23:25:24-07:00">2021-07-16</time>
+              <time title="Created: 2021-07-16 23:25:24" itemprop="dateCreated datePublished" datetime="2021-07-16T23:25:24-07:00">2021-07-16</time>
             </span>
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-07-17 12:04:52" itemprop="dateModified" datetime="2021-07-17T12:04:52-07:00">2021-07-17</time>
+              </span>
             
           
 
@@ -257,10 +267,10 @@
 
       
           
-            <p>It’s easy to create a process, but it’s hard to manage its lifecycle. What if it<br>dies, what if resources is insufficient, what if you want to create more<br>replicas, etc.</p>
+            <p>It’s easy to create a process, but it’s hard to manage its lifecycle. What if it<br>dies, what if resources are insufficient, what if you want to create more<br>replicas, etc.</p>
 <p>It’s easy to make a REST request, but it’s hard to manage its lifecycle. What if<br>it fails, what if you need to make many to achieve one logical goal, what if<br>some of them fail, what if the order matters and changes later, etc.</p>
 <p>Therefore:<br>Q: What’s the difference between a Linux process and a K8s operator running in<br>Pod?</p>
-<p>A: Roughly speaking, pod is a <em>managed</em> process where as process is a pure compute unit, which could be managed by systemd etc.</p>
+<p>A: Roughly speaking, pod is a <em>managed</em> process whereas process is a pure compute unit, which could be managed by systemd etc.</p>
 <p>Q: What’s the difference between managing some infra resources through making a<br>bunch of REST calls and creating a CRD for a k8s operator?</p>
 <p>A: Roughly speaking, CRD is a <em>managed</em> request. Also yaml is a better user<br>interface.</p>
 <p>Intention reads better than implementation. The system that helps you to focus<br>on intention wins eventually.</p>
